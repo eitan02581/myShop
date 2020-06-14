@@ -45,7 +45,7 @@ export default {
   async created() {
     this.bougthItems = await this.$store.dispatch({ type: "getBoughtItems" });
     this.bougthItems = this.bougthItems.sort((a, b) => {
-      if (!b.estDeliver) return -1;
+      if (!b.estDeliver) return -1; 
       if (a.estDeliver > b.estDeliver) return 1;
       if (a.estDeliver < b.estDeliver) return -1;
       return 0;
