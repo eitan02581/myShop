@@ -13,7 +13,6 @@
 
 <script>
 import ItemPreview from "@/components/ItemPreview";
-
 export default {
   name: "ReceivedList",
   props: {},
@@ -50,7 +49,6 @@ export default {
     margin: 0 auto;
   }
 }
-
 @media only screen and (min-width: 600px) {
   .ReceivedList-container {
     .item-holder {
@@ -60,4 +58,3 @@ export default {
   }
 }
 </style>
-

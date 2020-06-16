@@ -4,7 +4,7 @@
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{item.name}}</div>
-          <div class="md-subhead">{{getPrice}} ₪</div>
+          <div class="md-subhead">{{getPrice}} {{selectedCurrency === 'ILS' ? '₪' : '$'}}</div>
         </md-card-header-text>
 
         <md-card-media>
@@ -22,12 +22,6 @@
         <md-button v-else @click="onReceived" class="md-accent">received</md-button>
       </md-card-actions>
     </md-card>
-    <!-- <p>{{item.name}}</p>
-    <p>{{getPrice}} ₪</p>
-    <p v-if="!item.status">{{item.estDeliver | time}}</p>
-    <p>{{item.storeName}}</p>
-    <md-button v-if="!item.isReceived" @click="onReceived" class="md-primary">Item is here</md-button>
-    <md-button v-else @click="onReceived" class="md-primary">you received the item</md-button>-->
   </div>
 </template>
 
@@ -50,6 +44,9 @@ export default {
     shekelToDollarCurr() {
       return this.$store.state.ShekelToDollarCurrency;
     },
+    selectedCurrency() {
+      return this.$store.state.selectedCurrency;
+    },
     getPrice() {
       return (this.item.price * this.shekelToDollarCurr).toFixed(2);
     }
@@ -62,7 +59,6 @@ export default {
 .ItemPreview {
   color: white;
   width: 100%;
-
   img {
     height: 80px;
     width: 80px;
@@ -78,4 +74,3 @@ export default {
   }
 }
 </style>
-

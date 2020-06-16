@@ -41,7 +41,6 @@ export default {
 
 <style lang="scss" scoped>
 .StorePreview {
-  // margin-bottom: 20px;
   width: 100%;
   .md-title,
   .md-subhead {
@@ -55,4 +54,3 @@ export default {
   }
 }
 </style>
-

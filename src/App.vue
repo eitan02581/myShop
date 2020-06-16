@@ -22,9 +22,8 @@ export default {
   created() {
     this.$store.dispatch({ type: "initAppData" });
     this.$store.dispatch({ type: "getCurrency" });
-
     this.currencyInterval = setInterval(() => {
-      this.$store.dispatch({ type: "getCurrency" });
+      this.$store.dispatch({ type: "getCurrency", isCalledFromInterval: true });
     }, window.myConfig.fetchCurrencyInterval);
   },
   beforeDestroy() {
@@ -43,14 +42,11 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
-
     &.router-link-exact-active {
       color: #42b983;
     }

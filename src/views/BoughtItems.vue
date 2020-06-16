@@ -5,6 +5,13 @@
         <md-tab @click="onTab('bougthItems')" id="tab-list" md-icon="list"></md-tab>
         <md-tab @click="onTab('store')" id="tab-store" md-icon="store"></md-tab>
       </md-tabs>
+      <md-field class="curr-selection">
+        <label for="movie">Currency</label>
+        <md-select v-model="selectedCurrency">
+          <md-option value="ILS">ILS</md-option>
+          <md-option value="USD">USD</md-option>
+        </md-select>
+      </md-field>
     </div>
 
     <div class="main">
@@ -39,18 +46,25 @@ export default {
   data() {
     return {
       selectedTab: "bougthItems",
-      bougthItems: null
+      bougthItems: null,
+      selectedCurrency: "ILS"
     };
   },
   async created() {
     this.bougthItems = await this.$store.dispatch({ type: "getBoughtItems" });
     this.bougthItems = this.bougthItems.sort((a, b) => {
-      if (!b.estDeliver) return -1; 
+      if (!b.estDeliver) return -1;
       if (a.estDeliver > b.estDeliver) return 1;
       if (a.estDeliver < b.estDeliver) return -1;
       return 0;
     });
-    await this.$store.dispatch({ type: "getStores" });
+    console.log(this.$store.state.selectedCurrency);
+
+    if (this.$store.state.selectedCurrency) {
+      this.selectedCurrency = this.$store.state.selectedCurrency;
+      console.log("this.selectedCurrency", this.selectedCurrency);
+    }
+    this.$store.dispatch({ type: "getStores" });
   },
   methods: {
     onReceived(item) {
@@ -66,7 +80,11 @@ export default {
       return this.$store.getters.stores;
     }
   },
-  watch: {}
+  watch: {
+    selectedCurrency: async function(currency) {
+      await this.$store.dispatch({ type: "getCurrency", currency });
+    }
+  }
 };
 </script>
 
@@ -78,8 +96,23 @@ export default {
     width: 100%;
     top: 0;
     z-index: 11;
+    position: relative;
+    .curr-selection {
+      display: inline-block;
+      width: 67px;
+      background-color: white;
+      position: absolute;
+      top: -3px;
+      right: 0px;
+      label {
+        padding: 0 5px;
+      }
+    }
+    .md-select {
+      width: 67px;
+      padding: 0 5px;
+    }
   }
-
   .main {
     padding: 0 20px;
     display: flex;
@@ -102,7 +135,6 @@ export default {
     margin-top: 24px;
   }
 }
-
 @media only screen and (min-width: 600px) {
   .BoughtItems-container {
     .main {
@@ -118,4 +150,3 @@ export default {
   }
 }
 </style>
-
