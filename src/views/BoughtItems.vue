@@ -58,11 +58,9 @@ export default {
       if (a.estDeliver < b.estDeliver) return -1;
       return 0;
     });
-    console.log(this.$store.state.selectedCurrency);
 
     if (this.$store.state.selectedCurrency) {
       this.selectedCurrency = this.$store.state.selectedCurrency;
-      console.log("this.selectedCurrency", this.selectedCurrency);
     }
     this.$store.dispatch({ type: "getStores" });
   },

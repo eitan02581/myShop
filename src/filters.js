@@ -11,6 +11,5 @@ Vue.filter('fullTime', timestamp => {
 
 Vue.filter('commingUp', timestamp => {
     let nowDate = new Date().getTime()
-    console.log(timestamp - nowDate)
     return moment(timestamp - nowDate).endOf('day').fromNow();
 })
